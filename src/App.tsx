@@ -1,26 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {  BrowserRouter, Route, Routes } from 'react-router-dom';
 
-function App() {
+import * as Styled from './styles';
+import Participants from './views/Participants';
+import Constraints from './views/Constraints';
+import Assignments from './views/Assignments';
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Styled.Wrapper>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Participants />} />
+          <Route path="constraints" element={<Constraints />} />
+          <Route path="login" element={<Assignments />} />
+        </Routes>
+      </BrowserRouter>
+    </Styled.Wrapper>
   );
-}
+};
 
 export default App;
