@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Constraints: React.FC = () => {
     return (
         <div>Constraints</div>        
