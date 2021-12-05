@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,16 +9,32 @@ import NewParticipant from '../components/NewParticipant';
 const Participants: React.FC = () => {
     const [participants, setParticipants] = useState<string[]>([]);
 
+    useEffect(() => {
+        const storedParticipants = window.localStorage.getItem('participants');
+        if (storedParticipants !== null) {
+            setParticipants(JSON.parse(storedParticipants))
+        }
+    }, []);
+
     const handleAdd = (participant: string) => {
-        setParticipants((prev) => [...prev, participant]);
+        setParticipants((prev) => {
+            const newParticipants = [...prev, participant];
+            window.localStorage.setItem('participants', JSON.stringify(newParticipants));
+            return newParticipants;
+        });        
     };
 
     const handleDelete = (toDelete: number) => {
-        setParticipants((prev) => prev.filter((_, i) => i !== toDelete));
+        setParticipants((prev) => {
+            const newParticipants = prev.filter((_, i) => i !== toDelete)
+            window.localStorage.setItem('participants', JSON.stringify(newParticipants));
+            return newParticipants;
+        });
     };
 
     const handleClear = () => {
         setParticipants([]);
+        window.localStorage.setItem('participants', JSON.stringify([]));
     };
 
     return (
