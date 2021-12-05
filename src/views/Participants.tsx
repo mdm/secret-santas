@@ -23,6 +23,8 @@ const Participants: React.FC = () => {
         "participants",
         JSON.stringify(newParticipants)
       );
+      window.localStorage.removeItem("constraints");
+      window.localStorage.removeItem("assignments");
       return newParticipants;
     });
   };
@@ -34,6 +36,8 @@ const Participants: React.FC = () => {
         "participants",
         JSON.stringify(newParticipants)
       );
+      window.localStorage.removeItem("constraints");
+      window.localStorage.removeItem("assignments");
       return newParticipants;
     });
   };
@@ -41,6 +45,8 @@ const Participants: React.FC = () => {
   const handleClear = () => {
     setParticipants([]);
     window.localStorage.setItem("participants", JSON.stringify([]));
+    window.localStorage.removeItem("constraints");
+    window.localStorage.removeItem("assignments");
   };
 
   return (

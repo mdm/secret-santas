@@ -24,18 +24,18 @@ const Constraints: React.FC = () => {
       }
       initalConstraints.push(constraintsForGiver);
     }
+    window.localStorage.setItem(
+      "constraints",
+      JSON.stringify(initalConstraints)
+    );
+    window.localStorage.removeItem("assignments");
     setConstraints(initalConstraints);
   };
 
   useEffect(() => {
     const storedConstraints = window.localStorage.getItem("constraints");
     if (storedConstraints !== null) {
-      const parsedConstraints = JSON.parse(storedConstraints);
-      if (parsedConstraints.length === participants.length) {
-        setConstraints(parsedConstraints);
-      } else {
-        initializeConstraints();
-      }
+      setConstraints(JSON.parse(storedConstraints));
     } else {
       initializeConstraints();
     }
@@ -51,6 +51,7 @@ const Constraints: React.FC = () => {
         "constraints",
         JSON.stringify(newConstraints)
       );
+      window.localStorage.removeItem("assignments");
       return newConstraints;
     });
   };

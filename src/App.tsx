@@ -13,7 +13,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Participants />} />
           <Route path="constraints" element={<Constraints />} />
-          <Route path="login" element={<Assignments />} />
+          <Route path="assignments" element={<Assignments />} />
         </Routes>
       </BrowserRouter>
     </Styled.Wrapper>
