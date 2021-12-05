@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faRandom,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 import * as Styled from "../styles";
 import Participant from "../components/Participant";
 import NewParticipant from "../components/NewParticipant";
+import { shuffle } from "../algorithm";
 
 const Participants: React.FC = () => {
   const [participants, setParticipants] = useState<string[]>([]);
@@ -49,6 +54,19 @@ const Participants: React.FC = () => {
     window.localStorage.removeItem("assignments");
   };
 
+  const handleShuffle = () => {
+    setParticipants((prev) => {
+      const newParticipants = shuffle([...prev]);
+      window.localStorage.setItem(
+        "participants",
+        JSON.stringify(newParticipants)
+      );
+      window.localStorage.removeItem("constraints");
+      window.localStorage.removeItem("assignments");
+      return newParticipants;
+    });
+  };
+
   return (
     <div>
       <div>Participants</div>
@@ -69,6 +87,10 @@ const Participants: React.FC = () => {
         <Styled.Button onClick={handleClear}>
           <Styled.ButtonText>Clear All</Styled.ButtonText>
           <FontAwesomeIcon icon={faTrash} />
+        </Styled.Button>
+        <Styled.Button onClick={handleShuffle}>
+          <Styled.ButtonText>Shuffle</Styled.ButtonText>
+          <FontAwesomeIcon icon={faRandom} />
         </Styled.Button>
         <Styled.LinkButton to="/constraints">
           <Styled.ButtonText>Set Constraints</Styled.ButtonText>

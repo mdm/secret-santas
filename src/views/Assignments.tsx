@@ -29,7 +29,9 @@ const Assignments: React.FC = () => {
 
     const newAssignments = findAssignments(constraints);
     if (newAssignments !== null) {
-        setAssignments(newAssignments);
+      setAssignments(newAssignments);
+    } else {
+      setAssignments([]);
     }
   };
 
@@ -43,26 +45,30 @@ const Assignments: React.FC = () => {
 
   return (
     <div>
-      <div>Constraints</div>
-      <ul>
-        {participants.map((giver, i) => {
-          return !assignments.length ? null : (
-            <li key={i}>
-              <Styled.Name>{giver}</Styled.Name>
-              <Styled.FlexRow>
-                <FontAwesomeIcon icon={faArrowRight} />
-                <Styled.Name>{participants[assignments[i]]}</Styled.Name>
-              </Styled.FlexRow>
-            </li>
-          );
-        })}
-      </ul>
-      <Styled.FlexRow>
+      <div>Assignments</div>
+      {!assignments.length ? (
+        <i>Assignment impossible. Relax constraints.</i>
+      ) : (
+        <ul>
+          {participants.map((giver, i) => {
+            return !assignments.length ? null : (
+              <li key={i}>
+                <Styled.Name>{giver}</Styled.Name>
+                <Styled.FlexRow>
+                  <FontAwesomeIcon icon={faArrowRight} />
+                  <Styled.Name>{participants[assignments[i]]}</Styled.Name>
+                </Styled.FlexRow>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+      {/* <Styled.FlexRow>
         <Styled.Button onClick={handleReroll}>
           <Styled.ButtonText>Reroll Assignments</Styled.ButtonText>
           <FontAwesomeIcon icon={faRedo} />
         </Styled.Button>
-      </Styled.FlexRow>
+      </Styled.FlexRow> */}
     </div>
   );
 };
