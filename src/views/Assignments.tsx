@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faRedo } from "@fortawesome/free-solid-svg-icons";
 
 import * as Styled from "../styles";
+import { findAssignments } from "../algorithm";
 
 const Assignments: React.FC = () => {
   const [participants, setParticipants] = useState<string[]>([]);
@@ -22,7 +23,14 @@ const Assignments: React.FC = () => {
   }, []);
 
   const makeAssignments = () => {
-      setAssignments([0]);
+    if (!constraints.length) {
+      return;
+    }
+
+    const newAssignments = findAssignments(constraints);
+    if (newAssignments !== null) {
+        setAssignments(newAssignments);
+    }
   };
 
   useEffect(() => {

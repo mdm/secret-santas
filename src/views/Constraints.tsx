@@ -33,6 +33,10 @@ const Constraints: React.FC = () => {
   };
 
   useEffect(() => {
+    if (!participants.length) {
+      return;
+    }
+
     const storedConstraints = window.localStorage.getItem("constraints");
     if (storedConstraints !== null) {
       setConstraints(JSON.parse(storedConstraints));
